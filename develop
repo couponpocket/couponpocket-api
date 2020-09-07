@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+
+# Decide which docker-compose file to use
+COMPOSE_FILE="dev"
+
+# Disable pseudo-TTY allocation for CI (Jenkins)
+TTY=""
+
+if [ ! -z "$BUILD_NUMBER" ]; then
+    COMPOSE_FILE="ci"
+    TTY="-T"
+fi
+
+COMPOSE="docker-compose -f docker-compose.base.yml -f docker-compose.$COMPOSE_FILE.yml"
+
+export DOCKER_BASENAME=$(basename "$(pwd)" | sed 's/\.//g')
+
+if [ $# -gt 0 ]; then
+    # install development env
+    if [ "$1" == "install" ]; then
+        shift 1
+
+        if [ ! -d "html/" ] || [ -z "$(ls -A html/)" ]; then
+            mkdir "html/" > /dev/null
+            if [ ! -f ".docker-sync/daemon.pid" ]; then
+                docker-sync start
+            fi
+            ./develop composer create-project --no-scripts --prefer-dist laravel/laravel .
+            rm html/.env*
+        else
+            if [ ! -f ".docker-sync/daemon.pid" ]; then
+                docker-sync start
+            fi
+            ./develop composer install
+        fi
+
+        ./develop npm install
+
+    elif [ "$1" == "start" ]; then
+        shift 1
+        docker-sync start
+        ./develop up -d
+        ./develop exec app chown www-data:www-data -R /var/www
+
+    elif [ "$1" == "stop" ]; then
+        shift 1
+        ./develop down
+        docker-sync stop
+
+    elif [ "$1" == "clean" ]; then
+        shift 1
+        docker-sync clean
+
+    elif [ "$1" == "art" ]; then
+        shift 1
+        $COMPOSE run --rm $TTY \
+            -w /var/www/html \
+            app \
+            php artisan "$@"
+
+    # If "composer" is used, pass-thru to "composer"
+    # inside a new container
+    elif [ "$1" == "composer" ]; then
+        shift 1
+        $COMPOSE run --rm $TTY \
+            -w /var/www/html \
+            app \
+            composer "$@"
+
+    # If "npm" is used, run npm
+    # from our node container
+    elif [ "$1" == "npm" ]; then
+        shift 1
+        $COMPOSE run --rm $TTY \
+            -w /var/www/html \
+            node \
+            npm "$@"
+    else
+        $COMPOSE "$@"
+    fi
+else
+    $COMPOSE ps
+fi

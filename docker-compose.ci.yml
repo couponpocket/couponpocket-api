@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  app:
+    build:
+      target: cs-php-apache-prod
+    volumes:
+      - ./html:/var/www/html
+  node:
+    build:
+      target: cs-node-prod
+    volumes:
+      - ./html:/var/www/html
