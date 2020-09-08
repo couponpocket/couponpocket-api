@@ -16,7 +16,11 @@
     brew install eugenmayer/dockersync/unox
    ```
 3. Copy .env.example to .env and configure it
-4. Start the Application
+4. Setup the application and install dependencies
+   ```
+   ./develop install
+   ```
+5. Start the Application
    ```
    ./develop start
    ```
@@ -30,6 +34,8 @@
 #### docker
 
 - `./develop start` - Stats the environment in background and serve the application at localhost
+- `./develop stop` - Stops the environment
+- `./develop install` - Install the Application when needed and install dependencies
 - `./develop build` - Build docker containers
 - `./develop run app bash` - Run bash environment in app container
 
