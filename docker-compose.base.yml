@@ -16,6 +16,8 @@ services:
       context: ./
       dockerfile: ./docker/app/Dockerfile
     image: php-base.clicksports.info/app
+    volumes:
+      - ~/.composer:/root/.composer:cached
     networks:
       - sdnet
     depends_on:

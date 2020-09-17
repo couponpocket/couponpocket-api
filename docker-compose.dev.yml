@@ -10,7 +10,6 @@ services:
       target: cs-php-fpm-dev
     volumes:
       - app-sync:/var/www/html:nocopy
-      - ~/.composer:/root/.composer
     environment:
       APP_KEY: "${APP_KEY}"
   node:
