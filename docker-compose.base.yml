@@ -23,10 +23,10 @@ services:
     depends_on:
       - mysql
     environment:
-      APP_NAME:    "${APP_NAME}"
-      APP_DEBUG:   "${APP_DEBUG}"
-      APP_URL:     "${APP_URL}"
-      APP_LOCALE:  "${APP_LOCALE}"
+      APP_NAME:     "${APP_NAME}"
+      APP_DEBUG:    "${APP_DEBUG}"
+      APP_URL:      "${APP_URL}"
+      APP_LOCALE:   "${APP_LOCALE}"
       APP_TIMEZONE: "${APP_TIMEZONE}"
 
       DB_HOST:     "${DB_HOST}"
@@ -35,13 +35,13 @@ services:
       DB_USERNAME: "${DB_USERNAME}"
       DB_PASSWORD: "${DB_PASSWORD}"
 
-      MAIL_MAILER: "${MAIL_MAILER}"
-      MAIL_HOST: "${MAIL_HOST}"
-      MAIL_PORT: "${MAIL_PORT}"
-      MAIL_USERNAME: "${MAIL_USERNAME}"
-      MAIL_PASSWORD: "${MAIL_PASSWORD}"
+      MAIL_MAILER:       "${MAIL_MAILER}"
+      MAIL_HOST:         "${MAIL_HOST}"
+      MAIL_PORT:         "${MAIL_PORT}"
+      MAIL_USERNAME:     "${MAIL_USERNAME}"
+      MAIL_PASSWORD:     "${MAIL_PASSWORD}"
+      MAIL_FROM_NAME:    "${MAIL_FROM_NAME}"
       MAIL_FROM_ADDRESS: "${MAIL_FROM_ADDRESS}"
-      MAIL_FROM_NAME: "${MAIL_FROM_NAME}"
   node:
     build:
       context: ./
