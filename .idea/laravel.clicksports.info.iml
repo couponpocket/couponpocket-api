@@ -8,6 +8,7 @@
       <excludeFolder url="file://$MODULE_DIR$/database/mysql" />
       <excludeFolder url="file://$MODULE_DIR$/html/node_modules" />
       <excludeFolder url="file://$MODULE_DIR$/html/public/assets" />
+      <excludeFolder url="file://$MODULE_DIR$/html/vendor" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
