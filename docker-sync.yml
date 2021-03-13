@@ -10,3 +10,4 @@ syncs:
   ${DOCKER_BASENAME}_app-sync:
     src: './html'
     sync_strategy: 'unison'
+    sync_userid: '33'

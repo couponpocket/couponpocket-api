@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 
+# Exit immediately if a command exits with a non-zero status.
+set -e
+
 # Decide which docker-compose file to use
 COMPOSE_FILE="dev"
 
-# Disable pseudo-TTY allocation for CI (Jenkins)
+# Disable pseudo-TTY allocation
 TTY=""
 
 if [ ! -z "$BUILD_NUMBER" ]; then
@@ -38,18 +41,28 @@ if [ $# -gt 0 ]; then
 
     elif [ "$1" == "start" ]; then
         shift 1
-        docker-sync start
+		if [ ! -f ".docker-sync/daemon.pid" ]; then
+			docker-sync start
+		fi
         ./develop up -d
-        ./develop exec app chown www-data:www-data -R /var/www
 
     elif [ "$1" == "stop" ]; then
         shift 1
         ./develop down
-        docker-sync stop
+		if [ ! -f ".docker-sync/daemon.pid" ]; then
+			docker-sync stop
+		fi
 
     elif [ "$1" == "clean" ]; then
         shift 1
         docker-sync clean
+
+    elif [ "$1" == "log" ]; then
+        shift 1
+        $COMPOSE exec \
+            -w /var/www/html \
+            app \
+            tail storage/logs/laravel.log "$@"
 
     elif [ "$1" == "art" ]; then
         shift 1
@@ -58,8 +71,6 @@ if [ $# -gt 0 ]; then
             app \
             php artisan "$@"
 
-    # If "composer" is used, pass-thru to "composer"
-    # inside a new container
     elif [ "$1" == "composer" ]; then
         shift 1
         $COMPOSE run --rm $TTY \
@@ -67,8 +78,17 @@ if [ $# -gt 0 ]; then
             app \
             composer "$@"
 
-    # If "npm" is used, run npm
-    # from our node container
+    elif [ "$1" == "test" ]; then
+        shift 1
+        $COMPOSE run --rm $TTY \
+            -w /var/www/html \
+            app \
+            ./vendor/bin/phpunit "$@"
+
+    elif [ "$1" == "t" ]; then
+        shift 1
+        ./develop test "$@"
+
     elif [ "$1" == "npm" ]; then
         shift 1
         $COMPOSE run --rm $TTY \

@@ -1,10 +1,7 @@
 version: '3.7'
 services:
   proxy:
-    build:
-      context: ./
-      dockerfile: ./docker/nginx/Dockerfile
-    image: php-base.clicksports.info/proxy
+    image: repo-clicksports.clicksports.de/laravel/nginx-dev:latest
     tty: true
     stdin_open: true
     networks:
@@ -12,12 +9,7 @@ services:
     depends_on:
       - app
   app:
-    build:
-      context: ./
-      dockerfile: ./docker/app/Dockerfile
-    image: php-base.clicksports.info/app
-    volumes:
-      - ~/.composer:/root/.composer:cached
+    image: repo-clicksports.clicksports.de/docker/php-fpm-dev
     networks:
       - sdnet
     depends_on:
@@ -43,14 +35,12 @@ services:
       MAIL_FROM_NAME:    "${MAIL_FROM_NAME}"
       MAIL_FROM_ADDRESS: "${MAIL_FROM_ADDRESS}"
   node:
-    build:
-      context: ./
-      dockerfile: ./docker/node/Dockerfile
-    image: php-base.clicksports.info/node
+    image: node:12.16
     networks:
       - sdnet
   mysql:
     image: mysql:5.7
+    platform: linux/amd64
     networks:
       - sdnet
     environment:

@@ -3,18 +3,15 @@ services:
   proxy:
     ports:
       - "${APP_PORT}:80"
+      - "${APP_PORT_SSL}:443"
     volumes:
       - app-sync:/var/www/html:nocopy
   app:
-    build:
-      target: cs-php-fpm-dev
     volumes:
       - app-sync:/var/www/html:nocopy
     environment:
       APP_KEY: "${APP_KEY}"
   node:
-    build:
-      target: cs-node-dev
     volumes:
       - app-sync:/var/www/html:nocopy
   mysql:
