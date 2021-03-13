@@ -23,17 +23,17 @@ if [ $# -gt 0 ]; then
     if [ "$1" == "install" ]; then
         shift 1
 
+        if [ ! -f ".docker-sync/daemon.pid" ]; then
+            docker-sync start
+        fi
+
         if [ ! -d "html/" ] || [ -z "$(ls -A html/)" ]; then
-            mkdir "html/" > /dev/null
-            if [ ! -f ".docker-sync/daemon.pid" ]; then
-                docker-sync start
+            if [ ! -d "html/" ]; then
+                mkdir "html/" > /dev/null
             fi
             ./develop composer create-project --no-scripts --prefer-dist laravel/laravel .
             rm html/.env*
         else
-            if [ ! -f ".docker-sync/daemon.pid" ]; then
-                docker-sync start
-            fi
             ./develop composer install
         fi
 
