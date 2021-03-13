@@ -15,4 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/coupons', 'Api\CouponController@index');
+Route::get('/coupon-category', 'Api\CouponCategoryController@index');
 

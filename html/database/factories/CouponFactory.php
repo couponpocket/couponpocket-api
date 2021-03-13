@@ -44,13 +44,13 @@ class CouponFactory extends Factory
         $validityTill->setMonth($validityFrom->month + 3);
 
         return [
-            'where' => self::WHERE[array_rand(self::WHERE)],
             'points' => self::POINTS[array_rand(self::POINTS)],
             'condition' => $this->faker->words(5, true),
             'ean' => rand(0, 1) ? $this->faker->ean13 : $this->faker->ean8,
             'source' => $this->faker->word(),
             'valid_from' => $validityFrom,
-            'valid_till' => $validityTill
+            'valid_till' => $validityTill,
+            'coupon_category_id' => rand(1, 6)
         ];
     }
 }

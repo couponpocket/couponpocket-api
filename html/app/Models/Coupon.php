@@ -4,23 +4,28 @@ namespace App\Models;
 
 use App\Core\Models\BaseModel;
 use DateTime;
+use http\Url;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * Class Coupon
  * @package App\Models
  * @property int $id
- * @property string $where
  * @property string $points
  * @property string $condition
  * @property string $ean
  * @property string $source
  * @property DateTime $valid_from
  * @property DateTime $valid_till
+ * @property int $coupon_category_id
  * @property DateTime $updated_at
  * @property DateTime $created_at
  * @property DateTime $deleted_at
+ * @property Collection|CouponCategory $couponCategory
  */
 class Coupon extends BaseModel
 {
@@ -31,7 +36,6 @@ class Coupon extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'where',
         'points',
         'condition',
         'ean',
@@ -45,6 +49,7 @@ class Coupon extends BaseModel
 
     protected $hidden = [
         'id',
+        'coupon_category_id',
         'created_at',
         'updated_at',
         'deleted_at'
@@ -56,4 +61,12 @@ class Coupon extends BaseModel
         'valid_from',
         'valid_till'
     ];
+
+    /**
+     * @return BelongsTo
+     */
+    public function couponCategory()
+    {
+        return $this->belongsTo(CouponCategory::class);
+    }
 }
