@@ -48,7 +48,6 @@ class Coupon extends BaseModel
     ];
 
     protected $hidden = [
-        'id',
         'coupon_category_id',
         'created_at',
         'updated_at',
