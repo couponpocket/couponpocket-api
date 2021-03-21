@@ -44,22 +44,6 @@ class CouponCategory extends BaseModel
     ];
 
     /**
-     * @param $value
-     */
-    public function setLogoAttribute($value)
-    {
-        $this->attributes['logo'] = basename($value);
-    }
-
-    /**
-     * @return string
-     */
-    public function getLogoAttribute()
-    {
-        return url('/images/logos/'.$this->attributes['logo']);
-    }
-
-    /**
      * @return HasMany
      */
     public function coupons()
