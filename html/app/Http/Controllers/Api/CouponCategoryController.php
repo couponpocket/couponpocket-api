@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Core\Controllers\Api\ApiController;
 use App\Models\CouponCategory;
-use App\Models\Coupon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
