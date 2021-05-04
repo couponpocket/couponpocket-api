@@ -17,7 +17,10 @@ class CouponCategoryController extends ApiController
     {
         return response()->json([
             'status' => 'true',
-            'items' => CouponCategory::with('coupons')
+            'items' => CouponCategory::with(['coupons' => function ($q) {
+                $q->orderBy('condition', 'ASC')
+                    ->orderBy('points', 'DESC');
+            }])
                 ->get()
         ]);
     }
