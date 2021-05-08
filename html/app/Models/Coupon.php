@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Date;
 
 /**
  * Class Coupon
@@ -19,8 +18,8 @@ use Illuminate\Support\Facades\Date;
  * @property string $condition
  * @property string $ean
  * @property string $source
- * @property Date $valid_from
- * @property Date $valid_till
+ * @property DateTime $valid_from
+ * @property DateTime $valid_till
  * @property int $coupon_category_id
  * @property DateTime $updated_at
  * @property DateTime $created_at
