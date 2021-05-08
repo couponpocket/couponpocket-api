@@ -15,24 +15,24 @@ services:
     depends_on:
       - mysql
     environment:
-      APP_NAME:     "${APP_NAME}"
-      APP_DEBUG:    "${APP_DEBUG}"
-      APP_URL:      "${APP_URL}"
-      APP_LOCALE:   "${APP_LOCALE}"
+      APP_NAME: "${APP_NAME}"
+      APP_DEBUG: "${APP_DEBUG}"
+      APP_URL: "${APP_URL}"
+      APP_LOCALE: "${APP_LOCALE}"
       APP_TIMEZONE: "${APP_TIMEZONE}"
 
-      DB_HOST:     "${DB_HOST}"
-      DB_PORT:     "${DB_PORT}"
+      DB_HOST: "${DB_HOST}"
+      DB_PORT: "${DB_PORT}"
       DB_DATABASE: "${DB_DATABASE}"
       DB_USERNAME: "${DB_USERNAME}"
       DB_PASSWORD: "${DB_PASSWORD}"
 
-      MAIL_MAILER:       "${MAIL_MAILER}"
-      MAIL_HOST:         "${MAIL_HOST}"
-      MAIL_PORT:         "${MAIL_PORT}"
-      MAIL_USERNAME:     "${MAIL_USERNAME}"
-      MAIL_PASSWORD:     "${MAIL_PASSWORD}"
-      MAIL_FROM_NAME:    "${MAIL_FROM_NAME}"
+      MAIL_MAILER: "${MAIL_MAILER}"
+      MAIL_HOST: "${MAIL_HOST}"
+      MAIL_PORT: "${MAIL_PORT}"
+      MAIL_USERNAME: "${MAIL_USERNAME}"
+      MAIL_PASSWORD: "${MAIL_PASSWORD}"
+      MAIL_FROM_NAME: "${MAIL_FROM_NAME}"
       MAIL_FROM_ADDRESS: "${MAIL_FROM_ADDRESS}"
   node:
     image: node:13.10
@@ -45,9 +45,9 @@ services:
       - sdnet
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: "yes"
-      MYSQL_DATABASE:             "${DB_DATABASE}"
-      MYSQL_USER:                 "${DB_USERNAME}"
-      MYSQL_PASSWORD:             "${DB_PASSWORD}"
+      MYSQL_DATABASE: "${DB_DATABASE}"
+      MYSQL_USER: "${DB_USERNAME}"
+      MYSQL_PASSWORD: "${DB_PASSWORD}"
 networks:
   sdnet:
     driver: "bridge"
