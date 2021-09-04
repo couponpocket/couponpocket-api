@@ -35,7 +35,7 @@ services:
       MAIL_FROM_NAME: "${MAIL_FROM_NAME}"
       MAIL_FROM_ADDRESS: "${MAIL_FROM_ADDRESS}"
   node:
-    image: node:13.10
+    image: node:16
     networks:
       - sdnet
   mysql:
