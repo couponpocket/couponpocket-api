@@ -4,28 +4,17 @@
 
 ---
 
- 1. Install python3 with supertools
-    ```
-    brew postinstall python3
-    pip3 install setuptools
-    ```
-2. install docker-sync
-    ```
-    sudo gem install docker-sync
-    brew install unison
-    brew install eugenmayer/dockersync/unox
-   ```
-3. Copy .env.example to .env and configure it
-4. Setup the application and install dependencies
+1. Copy .env.example to .env and configure it
+2. Setup the application and install dependencies
    ```
    ./develop install
    ```
-5. Start the Application
+3. Start the Application
    ```
    ./develop start
    ```
-6. Configure the database in PHPStorm
-7. Import the database file
+4. Configure the database in PHPStorm
+5. Import the database file
 
 ### Commands
 

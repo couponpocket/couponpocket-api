@@ -5,23 +5,17 @@ services:
       - "${APP_PORT}:80"
       - "${APP_PORT_SSL}:443"
     volumes:
-      - app-sync:/var/www/html:nocopy
+      - ./html:/var/www/html:delegated
   app:
     volumes:
-      - app-sync:/var/www/html:nocopy
+      - ./html:/var/www/html:delegated
     environment:
       APP_KEY: "${APP_KEY}"
   node:
     volumes:
-      - app-sync:/var/www/html:nocopy
+      - ./html:/var/www/html:delegated
   mysql:
     ports:
       - "${DB_PORT}:3306"
     volumes:
       - ./database/mysql:/var/lib/mysql
-
-# that the important thing
-volumes:
-  app-sync:
-    external:
-      name: "${DOCKER_BASENAME}_app-sync"

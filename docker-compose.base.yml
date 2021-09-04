@@ -9,7 +9,7 @@ services:
     depends_on:
       - app
   app:
-    image: repo-clicksports.clicksports.de/docker/php-fpm-dev:7.4
+    image: repo-clicksports.clicksports.de/docker/php-fpm-dev:8.0
     networks:
       - sdnet
     depends_on:

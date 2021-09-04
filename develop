@@ -16,16 +16,10 @@ fi
 
 COMPOSE="docker-compose -f docker-compose.base.yml -f docker-compose.$COMPOSE_FILE.yml"
 
-export DOCKER_BASENAME=$(basename "$(pwd)" | sed 's/\.//g')
-
 if [ $# -gt 0 ]; then
     # install development env
     if [ "$1" == "install" ]; then
         shift 1
-
-        if [ ! -f ".docker-sync/daemon.pid" ]; then
-            docker-sync start
-        fi
 
         if [ ! -d "html/" ] || [ -z "$(ls -A html/)" ]; then
             if [ ! -d "html/" ]; then
@@ -41,21 +35,11 @@ if [ $# -gt 0 ]; then
 
     elif [ "$1" == "start" ]; then
         shift 1
-		if [ ! -f ".docker-sync/daemon.pid" ]; then
-			docker-sync start
-		fi
         ./develop up -d
 
     elif [ "$1" == "stop" ]; then
         shift 1
         ./develop down
-		if [ ! -f ".docker-sync/daemon.pid" ]; then
-			docker-sync stop
-		fi
-
-    elif [ "$1" == "clean" ]; then
-        shift 1
-        docker-sync clean
 
     elif [ "$1" == "log" ]; then
         shift 1
