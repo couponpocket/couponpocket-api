@@ -48,7 +48,7 @@ class CouponCategory extends BaseModel
     /**
      * @return HasMany
      */
-    public function coupons()
+    public function coupons(): HasMany
     {
         return $this->hasMany(Coupon::class, 'coupon_category_id');
     }

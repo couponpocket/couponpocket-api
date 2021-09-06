@@ -47,7 +47,6 @@ class Coupon extends BaseModel
     ];
 
     protected $hidden = [
-        'coupon_category_id',
         'created_at',
         'updated_at',
         'deleted_at'
@@ -63,7 +62,7 @@ class Coupon extends BaseModel
     /**
      * @return BelongsTo
      */
-    public function couponCategory()
+    public function couponCategory(): BelongsTo
     {
         return $this->belongsTo(CouponCategory::class);
     }
