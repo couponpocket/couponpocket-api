@@ -25,11 +25,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property DateTime $created_at
  * @property DateTime $deleted_at
  * @property Collection|CouponCategory $couponCategory
- * @method static Coupon where(\Closure|string|array $column, $operator = null, $value = null, $boolean = 'and')
- * @method static Coupon select(string $query, array $bindings = [], bool $useReadPdo = true)
- * @method static Coupon whereIn(string $string, array $array_map)
- * @method static Coupon whereNotIn(string $string, array $array_map)
-
  */
 class Coupon extends BaseModel
 {
