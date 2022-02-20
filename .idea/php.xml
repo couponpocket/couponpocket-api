@@ -4,8 +4,6 @@
     <include_path>
       <path value="$PROJECT_DIR$/html/vendor/fideloper/proxy" />
       <path value="$PROJECT_DIR$/html/vendor/fruitcake/laravel-cors" />
-      <path value="$PROJECT_DIR$/html/vendor/dnoegel/php-xdg-base-dir" />
-      <path value="$PROJECT_DIR$/html/vendor/asm89/stack-cors" />
       <path value="$PROJECT_DIR$/html/vendor/symfony/process" />
       <path value="$PROJECT_DIR$/html/vendor/symfony/translation" />
       <path value="$PROJECT_DIR$/html/vendor/symfony/translation-contracts" />
@@ -39,7 +37,6 @@
       <path value="$PROJECT_DIR$/html/vendor/symfony/polyfill-intl-normalizer" />
       <path value="$PROJECT_DIR$/html/vendor/symfony/finder" />
       <path value="$PROJECT_DIR$/html/vendor/symfony/deprecation-contracts" />
-      <path value="$PROJECT_DIR$/html/vendor/symfony/http-client-contracts" />
       <path value="$PROJECT_DIR$/html/vendor/symfony/routing" />
       <path value="$PROJECT_DIR$/html/vendor/symfony/polyfill-mbstring" />
       <path value="$PROJECT_DIR$/html/vendor/dragonmantank/cron-expression" />
@@ -108,9 +105,17 @@
       <path value="$PROJECT_DIR$/html/vendor/sebastian/object-enumerator" />
       <path value="$PROJECT_DIR$/html/vendor/sebastian/global-state" />
       <path value="$PROJECT_DIR$/html/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/html/vendor/nette/schema" />
+      <path value="$PROJECT_DIR$/html/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/html/vendor/dflydev/dot-access-data" />
+      <path value="$PROJECT_DIR$/html/vendor/nette/utils" />
+      <path value="$PROJECT_DIR$/html/vendor/symfony/polyfill-php81" />
+      <path value="$PROJECT_DIR$/html/vendor/league/config" />
+      <path value="$PROJECT_DIR$/html/vendor/laravel/serializable-closure" />
+      <path value="$PROJECT_DIR$/html/vendor/fruitcake/php-cors" />
     </include_path>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="8.0">
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.1">
     <option name="suggestChangeDefaultLanguageLevel" value="false" />
   </component>
   <component name="PhpUnit">
