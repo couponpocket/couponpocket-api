@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/app.couponpocket.de-backend.iml" filepath="$PROJECT_DIR$/.idea/app.couponpocket.de-backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/couponpocket-api.iml" filepath="$PROJECT_DIR$/.idea/couponpocket-api.iml" />
     </modules>
   </component>
 </project>

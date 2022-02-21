@@ -1,4 +1,4 @@
-# <img src="https://www.clicksports.de/assets/img/clicksports-mark.svg" width=27> Laravel Docker-Container
+# Coupon Pocket API
 
 ### Setup
 

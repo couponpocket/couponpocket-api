@@ -6,14 +6,6 @@ set -e
 # Decide which docker-compose file to use
 COMPOSE_FILE="dev"
 
-# Disable pseudo-TTY allocation
-TTY=""
-
-if [ ! -z "$BUILD_NUMBER" ]; then
-    COMPOSE_FILE="ci"
-    TTY="-T"
-fi
-
 COMPOSE="docker-compose -f docker-compose.base.yml -f docker-compose.$COMPOSE_FILE.yml"
 
 if [ $# -gt 0 ]; then
@@ -50,21 +42,21 @@ if [ $# -gt 0 ]; then
 
     elif [ "$1" == "art" ]; then
         shift 1
-        $COMPOSE run --rm $TTY \
+        $COMPOSE run --rm \
             -w /var/www/html \
             app \
             php artisan "$@"
 
     elif [ "$1" == "composer" ]; then
         shift 1
-        $COMPOSE run --rm $TTY \
+        $COMPOSE run --rm \
             -w /var/www/html \
             app \
             composer "$@"
 
     elif [ "$1" == "test" ]; then
         shift 1
-        $COMPOSE run --rm $TTY \
+        $COMPOSE run --rm \
             -w /var/www/html \
             app \
             ./vendor/bin/phpunit "$@"
@@ -75,7 +67,7 @@ if [ $# -gt 0 ]; then
 
     elif [ "$1" == "npm" ]; then
         shift 1
-        $COMPOSE run --rm $TTY \
+        $COMPOSE run --rm \
             -w /var/www/html \
             node \
             npm "$@"
