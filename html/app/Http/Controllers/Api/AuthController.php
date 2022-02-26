@@ -112,8 +112,6 @@ class AuthController extends ApiController
                 $user->save();
 
                 event(new PasswordReset($user));
-
-                Auth::guard()->login($user);
             }
         );
 
