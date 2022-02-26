@@ -39,8 +39,7 @@ services:
     networks:
       - sdnet
   mysql:
-    image: mysql:5.7
-    platform: linux/amd64
+    image: mysql/mysql-server:8.0
     networks:
       - sdnet
     environment:
