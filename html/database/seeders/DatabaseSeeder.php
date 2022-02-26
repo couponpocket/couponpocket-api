@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Coupon;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,5 +16,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Coupon::factory(50)->create();
+
+        User::factory()
+            ->count(10)
+            ->create();
     }
 }

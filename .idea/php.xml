@@ -113,6 +113,8 @@
       <path value="$PROJECT_DIR$/html/vendor/league/config" />
       <path value="$PROJECT_DIR$/html/vendor/laravel/serializable-closure" />
       <path value="$PROJECT_DIR$/html/vendor/fruitcake/php-cors" />
+      <path value="$PROJECT_DIR$/html/vendor/laravel/sanctum" />
+      <path value="$PROJECT_DIR$/html/vendor/tucker-eric/eloquentfilter" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1">

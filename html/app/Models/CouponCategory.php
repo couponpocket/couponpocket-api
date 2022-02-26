@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * Class CouponCategory
  * @package App\Models
  *
- * @property int $id
+ * @property-read string $id
  * @property string $name
  * @property string $logo
  * @property string $color_background

@@ -13,7 +13,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class Coupon
  * @package App\Models
- * @property int $id
+ *
+ * @property-read string $id
  * @property string $points
  * @property string $condition
  * @property string $ean
