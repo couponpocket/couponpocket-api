@@ -63,13 +63,6 @@ class Handler extends ExceptionHandler
             ], 409);
         }
 
-        if ($e instanceof HttpException) {
-            return response()->json([
-                'status' => false,
-                'message' => $e->getMessage(),
-            ], $e->getStatusCode());
-        }
-
         if ($e instanceof ValidationException) {
             /** @var ValidationException $e */
             if ($request->expectsJson()) {
