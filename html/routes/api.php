@@ -41,8 +41,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 });
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
-    Route::get('user/me', [UserController::class, 'authorizedUser'])->name('user.me');
-    Route::apiResource('user', UserController::class);
+    Route::get('users/me', [UserController::class, 'authorizedUser'])->name('user.me');
+    Route::apiResource('users', UserController::class);
 
     Route::get('ping/auth-verified', function () {
         return new Response("pong");
