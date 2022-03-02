@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Core\Models\UUIDModel;
+use App\Core\Models\BaseModel;
 use DateTime;
 use http\Url;
 use Illuminate\Database\Eloquent\Collection;
@@ -27,7 +27,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property DateTime $deleted_at
  * @property Collection|CouponCategory $couponCategory
  */
-class Coupon extends UUIDModel
+class Coupon extends BaseModel
 {
     use SoftDeletes,
         HasFactory;

@@ -5,6 +5,7 @@ namespace App\Core\Models;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 /**
  * @property int $id
@@ -23,4 +24,18 @@ use Illuminate\Database\Eloquent\Model;
 */
 abstract class BaseModel extends Model
 {
+    public $incrementing = false;
+    public $keyType = 'string';
+
+    public static function boot()
+    {
+        parent::boot();
+
+        self::creating(function ($model) {
+            /** @var BaseModel $model */
+            if (!$model->getKey()) {
+                $model->{$model->getKeyName()} = (string)Str::uuid();
+            }
+        });
+    }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Core\Models\UUIDModel;
+use App\Core\Models\BaseModel;
 use DateTime;
 use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailConstant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -35,7 +35,7 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property DateTime $updated_at
  * @property DateTime $deleted_at
  */
-class User extends UUIDModel implements
+class User extends BaseModel implements
     AuthenticatableContract,
     AuthorizableContract,
     CanResetPasswordContract,
