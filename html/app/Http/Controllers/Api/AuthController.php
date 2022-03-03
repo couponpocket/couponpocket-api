@@ -3,16 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use App\Core\Controllers\Api\ApiController;
-use App\Core\Traits\StoringTrait;
-use App\Http\Requests\GenerateTokenRequest;
-use App\Http\Requests\LogoutRequest;
-use App\Http\Requests\RegisterRequest;
+use App\Core\Traits\StoreTrait;
+use App\Http\Requests\Auth\GenerateTokenRequest;
+use App\Http\Requests\Auth\LogoutRequest;
+use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
@@ -24,7 +23,7 @@ use Illuminate\Validation\ValidationException;
  */
 class AuthController extends ApiController
 {
-    use StoringTrait {
+    use StoreTrait {
         store as baseStore;
     }
 

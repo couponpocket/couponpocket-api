@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Core\Controllers\Api\ApiController;
-use App\Core\Traits\DestroyingTrait;
+use App\Core\Requests\DestroyRequest;
+use App\Core\Traits\DestroyTrait;
 use App\Core\Traits\IndexPaginationTrait;
-use App\Core\Traits\ShowingTrait;
-use App\Core\Traits\StoringTrait;
-use App\Core\Traits\UpdatingTrait;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
+use App\Core\Traits\ShowTrait;
+use App\Core\Traits\StoreTrait;
+use App\Core\Traits\UpdateTrait;
+use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -22,17 +23,17 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 class UserController extends ApiController
 {
     use IndexPaginationTrait,
-        ShowingTrait;
+        ShowTrait;
 
-    use StoringTrait {
+    use StoreTrait {
         store as baseStore;
     }
 
-    use UpdatingTrait {
+    use UpdateTrait {
         update as baseUpdate;
     }
 
-    use DestroyingTrait {
+    use DestroyTrait {
         destroy as baseDestroy;
     }
 
@@ -67,9 +68,10 @@ class UserController extends ApiController
 
     /**
      * @param $id
+     * @param DestroyRequest $request
      * @return JsonResponse
      */
-    public function destroy($id): JsonResponse
+    public function destroy($id, DestroyRequest $request): JsonResponse
     {
         /** @var User $currentUser */
         $currentUser = Auth::user();
@@ -79,6 +81,6 @@ class UserController extends ApiController
             throw new AccessDeniedHttpException("A user cannot delete himself");
         }
 
-        return $this->baseDestroy($id);
+        return $this->baseDestroy($id, $request);
     }
 }

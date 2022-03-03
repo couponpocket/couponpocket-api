@@ -29,6 +29,7 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property string $name
  * @property string $email
  * @property string $password
+ * @property int $role
  * @property string $remember_token
  * @property DateTime $email_verified_at
  * @property DateTime $created_at
@@ -61,6 +62,7 @@ class User extends BaseModel implements
         'name',
         'email',
         'password',
+        'role'
     ];
 
     /**
@@ -71,8 +73,10 @@ class User extends BaseModel implements
     protected $hidden = [
         'password',
         'remember_token',
+        'email_verified_at',
         'updated_at',
-        'created_at'
+        'created_at',
+        'deleted_at'
     ];
 
     /**
@@ -87,6 +91,26 @@ class User extends BaseModel implements
     public function isActivated(): bool
     {
         return $this->hasVerifiedEmail();
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === 1;
+    }
+
+    public function isModerator(): bool
+    {
+        return $this->role === 2;
+    }
+
+    public function isPartner(): bool
+    {
+        return $this->role === 3;
+    }
+
+    public function isUser(): bool
+    {
+        return $this->role === 4;
     }
 
     public function setPasswordAttribute($value)

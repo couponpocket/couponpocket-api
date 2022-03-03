@@ -3,20 +3,20 @@
 namespace App\Core\Traits;
 
 use App\Core\Models\BaseModel;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Core\Requests\StoreRequest;
 use Illuminate\Http\JsonResponse;
 
 /**
  * @property ?BaseModel $modelInUse
  * @method BaseModel createModelFromClass()
  */
-trait StoringTrait
+trait StoreTrait
 {
     /**
-     * @param FormRequest $request
+     * @param StoreRequest $request
      * @return JsonResponse
      */
-    public function store(FormRequest $request): JsonResponse
+    public function store(StoreRequest $request): JsonResponse
     {
         $model = $this->createModelFromClass();
         $model->fill($request->validated());

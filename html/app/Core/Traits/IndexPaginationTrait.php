@@ -3,9 +3,8 @@
 namespace App\Core\Traits;
 
 use App\Core\Models\BaseModel;
-use App\Http\Requests\IndexPaginationRequest;
+use App\Core\Requests\IndexPaginationRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 /**
  * @property BaseModel|string $modelClass

@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Api;
 
 use App\Core\Controllers\Api\ApiController;
+use App\Http\Requests\Coupon\IndexCouponRequest;
 use App\Models\Coupon;
 use DateTime;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class CouponController extends ApiController
 {
     /**
-     * @param Request $request
+     * @param IndexCouponRequest $request
      * @return JsonResponse
      */
-    public function index(Request $request): JsonResponse
+    public function index(IndexCouponRequest $request): JsonResponse
     {
         $now = new DateTime();
 
