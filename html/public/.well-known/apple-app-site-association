@@ -1,0 +1,18 @@
+{
+    "webcredentials": {
+        "apps": [
+            "T9VCGP8AZS.de.couponpocket.app"
+        ]
+    },
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "T9VCGP8AZS.de.couponpocket.app",
+                "paths": [
+                    "*"
+                ]
+            }
+        ]
+    }
+}
