@@ -18,14 +18,12 @@ class CouponController extends ApiController
     {
         $now = new DateTime();
 
-        return response()->json([
-            'status' => 'true',
-            'items' => Coupon::where('valid_from', '<=', $now->format('Y-m-d'))
-                ->where('valid_till', '>=', $now->format('Y-m-d'))
-                ->orderBy('condition', 'ASC')
-                ->orderByRaw('LENGTH(points) DESC, points DESC')
-                ->orderBy('valid_till', 'ASC')
-                ->get()
-        ]);
+        return response()->json(Coupon::where('valid_from', '<=', $now->format('Y-m-d'))
+            ->where('valid_till', '>=', $now->format('Y-m-d'))
+            ->orderBy('condition', 'ASC')
+            ->orderByRaw('LENGTH(points) DESC, points DESC')
+            ->orderBy('valid_till', 'ASC')
+            ->get()
+        );
     }
 }

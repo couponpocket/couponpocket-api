@@ -18,14 +18,13 @@ class CouponCategoryController extends ApiController
     {
         $now = new DateTime();
 
-        return response()->json([
-            'status' => 'true',
-            'items' => CouponCategory::whereHas('coupons', function ($q) use ($now) {
-                    $q->where('valid_from', '<=', $now->format('Y-m-d'))
-                        ->where('valid_till', '>=', $now->format('Y-m-d'));
-                })
-                ->orderBy('name', 'ASC')
-                ->get()
-        ]);
+        return response()->json(CouponCategory::whereHas('coupons',
+            function ($q) use ($now) {
+                $q->where('valid_from', '<=', $now->format('Y-m-d'))
+                    ->where('valid_till', '>=', $now->format('Y-m-d'));
+            })
+            ->orderBy('name', 'ASC')
+            ->get()
+        );
     }
 }
