@@ -2,47 +2,60 @@
 
 namespace App\Exceptions;
 
-use ErrorException;
-use Illuminate\Auth\AuthenticationException;
+use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Contracts\Encryption\EncryptException;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
 {
-    /**
-     * A list of the exception types that are not reported.
-     *
-     * @var array
-     */
-    protected $dontReport = [
-        //
-    ];
-
     /**
      * A list of the inputs that are never flashed for validation exceptions.
      *
      * @var array
      */
     protected $dontFlash = [
-        'current_password',
         'password',
         'password_confirmation',
     ];
 
     /**
-     * Register the exception handling callbacks for the application.
+     * Convert the given exception to an array.
      *
-     * @return void
+     * @param Exception $e
+     * @return array
      */
-    public function register()
+    public function convertExceptionToArray(Throwable $e): array
     {
-        $this->reportable(function (Throwable $e) {
-            //
-        });
+        return config('app.debug') ? [
+            'message' => $e->getMessage(),
+            'exception' => get_class($e),
+            'file' => $e->getFile(),
+            'line' => $e->getLine(),
+            'trace' => collect($e->getTrace())->map(function ($trace) {
+                return Arr::except($trace, ['args']);
+            })->all(),
+        ] : [
+            'message' => $this->isProtectedException($e) ? 'Server Error' : $e->getMessage()
+        ];
+    }
+
+    /**
+     * @param Exception $e
+     * @return bool
+     */
+    public function isProtectedException(Exception $e): bool
+    {
+        return $e instanceof QueryException ||
+            $e instanceof EncryptException ||
+            $e instanceof DecryptException;
     }
 
     /**
@@ -56,31 +69,23 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $e): Response
     {
-        if ($e instanceof ErrorException) {
-            return response()->json([
-                'exception' => $e->getMessage(),
-                'stacktrace' => $e->getTraceAsString()
-            ], 409);
-        }
-
-        if ($e instanceof ValidationException) {
-            /** @var ValidationException $e */
-            if ($request->expectsJson()) {
+        switch (get_class($e)) {
+            case AuthorizationException::class:
+                /** @var AuthorizationException $e */
                 return response()->json([
-                    'status' => false,
+                    'message' => $e->getMessage()
+                ], 403);
+            case ValidationException::class:
+                /** @var ValidationException $e */
+                return response()->json([
                     'message' => __('validation.error-message'),
-                    'errors' => $e->errors(),
+                    'errors' => $e->errors()
                 ], $e->status);
-            }
-
-            return $this->invalid($request, $e);
-        }
-
-        if ($e instanceof AuthenticationException) {
-            return response()->json([
-                'status' => false,
-                'message' => $e->getMessage()
-            ], 401);
+            default:
+                /** @var Exception $e */
+                if ($request->expectsJson()) {
+                    return response()->json($this->convertExceptionToArray($e), 500);
+                }
         }
 
         return parent::render($request, $e);
