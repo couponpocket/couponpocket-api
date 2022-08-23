@@ -3,8 +3,8 @@
 namespace Tests\Events;
 
 use App\Models\User;
+use App\Notifications\VerifyEmail;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
 

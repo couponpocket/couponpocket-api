@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Core\Models\BaseModel;
+use App\Notifications\VerifyEmail;
 use DateTime;
 use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailConstant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -111,6 +112,21 @@ class User extends BaseModel implements
     public function isUser(): bool
     {
         return $this->role === 4;
+    }
+
+    /**
+     * Send the email verification notification.
+     *
+     * @return void
+     */
+    public function sendEmailVerificationNotification(): void
+    {
+        $this->notify(new VerifyEmail);
+    }
+
+    public function generateEmailValidationCode(): string
+    {
+        return mb_strtoupper(substr(sha1($this->id.$this->email.config('app.key').(time() - (time() % 900))), 0, 6));
     }
 
     public function setPasswordAttribute($value)

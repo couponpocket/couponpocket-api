@@ -18,8 +18,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/coupons', [CouponController::class, 'index'])->name('coupons');
-Route::get('/coupon-categories', [CouponCategoryController::class, 'index']);
+Route::get('coupons', [CouponController::class, 'index'])->name('coupons');
+Route::get('coupon-categories', [CouponCategoryController::class, 'index']);
 
 Route::post('reset-password', [AuthController::class, 'resetPassword'])->name('password.reset');
 Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->name('password.forgot');
@@ -31,7 +31,7 @@ Route::get('ping', function () {
 })->name('ping');
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('email/verify/{id}/{hash}', [AuthController::class, 'verify'])->name('verification.verify');
+    Route::post('email/verify', [AuthController::class, 'verify'])->name('verification.verify');
     Route::post('email/resend', [AuthController::class, 'resend'])->name('verification.send');
     Route::post('remove-token', [AuthController::class, 'logout'])->name('remove.token');
 

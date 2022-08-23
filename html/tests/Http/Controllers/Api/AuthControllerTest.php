@@ -3,15 +3,12 @@
 namespace Tests\Http\Controllers\Api;
 
 use App\Models\User;
+use App\Notifications\VerifyEmail;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Notifications\ResetPassword as ResetPasswordNotification;
-use Illuminate\Auth\Notifications\VerifyEmail;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Facades\URL;
 use Tests\TestCase;
 
 class AuthControllerTest extends TestCase
@@ -60,7 +57,7 @@ class AuthControllerTest extends TestCase
         ])
             ->assertStatus(422)
             ->assertInvalid([
-                'password' => __('validation.required', ['attribute' => 'password'])
+                'password' => __('validation.required', ['attribute' => __('validation.attributes.password')])
             ]);
 
         $this->json('post', '/api/register', [
@@ -69,7 +66,7 @@ class AuthControllerTest extends TestCase
         ])
             ->assertStatus(422)
             ->assertInvalid([
-                'name' => __('validation.required', ['attribute' => 'name'])
+                'name' => __('validation.required', ['attribute' => __('validation.attributes.name')])
             ]);
 
         $this->json('post', '/api/register', [
@@ -78,7 +75,7 @@ class AuthControllerTest extends TestCase
         ])
             ->assertStatus(422)
             ->assertInvalid([
-                'email' => __('validation.required', ['attribute' => 'email'])
+                'email' => __('validation.required', ['attribute' => __('validation.attributes.email')])
             ]);
 
         $this->assertDatabaseCount('users', 0);
@@ -96,7 +93,7 @@ class AuthControllerTest extends TestCase
         ])
             ->assertStatus(422)
             ->assertInvalid([
-                'email' => __('validation.email', ['attribute' => 'email'])
+                'email' => __('validation.email', ['attribute' => __('validation.attributes.email')])
             ]);
 
         $this->assertDatabaseCount('users', 0);
@@ -123,20 +120,11 @@ class AuthControllerTest extends TestCase
         // user is not activated whe should not able to fetch resources, only the token
         $this->json('get', '/api/ping/auth-verified', [], [
             'Authorization' => 'Bearer ' . $token
-        ])
-            ->assertForbidden();
+        ]);
 
-        $url = URL::temporarySignedRoute(
-            'verification.verify',
-            Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)),
-            [
-                'id' => $user->id,
-                'hash' => sha1($user->email),
-            ],
-            false
-        );
-
-        $this->json('get', $url, [], [
+        $this->json('post', '/api/email/verify', [
+            'code' => $user->generateEmailValidationCode()
+        ], [
             'Authorization' => 'Bearer ' . $token
         ])
             ->assertNoContent();

@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Core\Controllers\Api\ApiController;
 use App\Core\Traits\StoreTrait;
+use App\Http\Requests\Auth\EmailVerificationRequest;
 use App\Http\Requests\Auth\GenerateTokenRequest;
 use App\Http\Requests\Auth\LogoutRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -125,7 +125,7 @@ class AuthController extends ApiController
      */
     public function logout(LogoutRequest $request): JsonResponse
     {
-        // Revoke the token that was used to authenticate the current request...
+        /** @noinspection PhpPossiblePolymorphicInvocationInspection */
         $request->user()->currentAccessToken()->delete();
 
         return response()->json([
