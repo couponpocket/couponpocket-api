@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'app')->name('app');
-
 // email is sending an url for it:
 Route::get('/reset-password', function () {
     return redirect('/#/reset-password');
