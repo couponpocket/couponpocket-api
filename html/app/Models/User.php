@@ -89,11 +89,6 @@ class User extends BaseModel implements
         'email_verified_at' => 'datetime'
     ];
 
-    public function isActivated(): bool
-    {
-        return $this->hasVerifiedEmail();
-    }
-
     public function isAdmin(): bool
     {
         return $this->role === 1;

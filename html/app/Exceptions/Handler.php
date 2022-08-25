@@ -74,7 +74,7 @@ class Handler extends ExceptionHandler
                 /** @var AuthorizationException $e */
                 return response()->json([
                     'message' => $e->getMessage()
-                ], 403);
+                ], $e->getCode() ?: 401);
             case ValidationException::class:
                 /** @var ValidationException $e */
                 return response()->json([
