@@ -10,6 +10,7 @@ use App\Http\Requests\Auth\LogoutRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -35,7 +36,12 @@ class AuthController extends ApiController
      */
     public function register(RegisterRequest $request): JsonResponse
     {
-        return $this->baseStore($request);
+        $this->baseStore($request);
+
+        return response()->json(array_merge(
+                $this->modelInUse->toArray(),
+                ['access_token' => $this->modelInUse->createToken('auth-token')->plainTextToken])
+        );
     }
 
     /**
@@ -44,7 +50,9 @@ class AuthController extends ApiController
      */
     public function verify(EmailVerificationRequest $request): JsonResponse
     {
-        $request->fulfill();
+        $request->user()->markEmailAsVerified();
+
+        event(new Verified($request->user()));
 
         return new JsonResponse([], 204);
     }
