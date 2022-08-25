@@ -43,7 +43,7 @@ class VerifyEmail extends Notification
             ->subject(Lang::get('Verify Email Address'))
             ->greeting('Hey ' . $user->name . ',')
             ->line(Lang::get('to activate your account, please enter the code in your Coupon Pocket app:'))
-            ->line($user->generateEmailValidationCode())
+            ->line($user->getEmailValidationCode())
             ->line(Lang::get('If you did not create an account, no further action is required.'));
     }
 }

@@ -123,7 +123,7 @@ class AuthControllerTest extends TestCase
         ]);
 
         $this->json('post', '/api/email/verify', [
-            'code' => $user->generateEmailValidationCode()
+            'code' => $user->getEmailValidationCode()
         ], [
             'Authorization' => 'Bearer ' . $token
         ])

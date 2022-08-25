@@ -124,7 +124,7 @@ class User extends BaseModel implements
         $this->notify(new VerifyEmail);
     }
 
-    public function generateEmailValidationCode(): string
+    public function getEmailValidationCode(): string
     {
         return mb_strtoupper(substr(sha1($this->id.$this->email.config('app.key').(time() - (time() % 900))), 0, 6));
     }
