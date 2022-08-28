@@ -3,10 +3,7 @@
 # Exit immediately if a command exits with a non-zero status.
 set -e
 
-# Decide which docker-compose file to use
-COMPOSE_FILE="dev"
-
-COMPOSE="docker-compose -f docker-compose.base.yml -f docker-compose.$COMPOSE_FILE.yml"
+COMPOSE="docker-compose -f docker-compose.yml"
 
 if [ $# -gt 0 ]; then
     # install development env
@@ -64,13 +61,6 @@ if [ $# -gt 0 ]; then
     elif [ "$1" == "t" ]; then
         shift 1
         ./develop test "$@"
-
-    elif [ "$1" == "npm" ]; then
-        shift 1
-        $COMPOSE run --rm \
-            -w /var/www/html \
-            node \
-            npm "$@"
     else
         $COMPOSE "$@"
     fi

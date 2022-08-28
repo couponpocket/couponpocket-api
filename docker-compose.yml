@@ -4,17 +4,25 @@ services:
     image: repo-clicksports.clicksports.de/laravel/nginx-dev:latest
     tty: true
     stdin_open: true
+    ports:
+      - "${APP_PORT}:80"
+      - "${APP_PORT_SSL}:443"
+    volumes_from:
+      - php-fpm:ro
     networks:
       - sdnet
     depends_on:
-      - app
-  app:
+      - php-fpm
+  php-fpm:
     image: repo-clicksports.clicksports.de/docker/php-fpm-dev:8.0
     networks:
       - sdnet
+    volumes:
+      - ./html:/var/www/html:delegated
     depends_on:
       - mysql
     environment:
+      APP_KEY: "${APP_KEY}"
       APP_NAME: "${APP_NAME}"
       APP_DEBUG: "${APP_DEBUG}"
       APP_URL: "${APP_URL}"
@@ -34,12 +42,12 @@ services:
       MAIL_PASSWORD: "${MAIL_PASSWORD}"
       MAIL_FROM_NAME: "${MAIL_FROM_NAME}"
       MAIL_FROM_ADDRESS: "${MAIL_FROM_ADDRESS}"
-  node:
-    image: node:16
-    networks:
-      - sdnet
   mysql:
     image: mysql/mysql-server:8.0
+    ports:
+      - "${DB_PORT}:3306"
+    volumes:
+      - mysql:/var/lib/mysql
     networks:
       - sdnet
     environment:
@@ -50,3 +58,6 @@ services:
 networks:
   sdnet:
     driver: "bridge"
+
+volumes:
+  mysql:
