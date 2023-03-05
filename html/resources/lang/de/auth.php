@@ -13,8 +13,7 @@ return [
     |
     */
 
-    'failed' => 'Mit diesen Zugangsdaten konnten wir keinen Nutzer finden.',
-    'password' => 'Das angegebene Passwort ist falsch.',
+    'failed' => 'Die angegebenen Anmeldedaten sind falsch',
     'throttle' => 'Zu viele Anmeldeversuche. Bitte versuchen Sie es in :seconds Sekunden erneut.',
 
 ];

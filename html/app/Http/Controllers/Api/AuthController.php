@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Core\Controllers\Api\ApiController;
 use App\Core\Traits\StoreTrait;
 use App\Http\Requests\Auth\EmailVerificationRequest;
+use App\Http\Requests\Auth\EmailVerificationResendRequest;
 use App\Http\Requests\Auth\GenerateTokenRequest;
 use App\Http\Requests\Auth\LogoutRequest;
 use App\Http\Requests\Auth\RegisterRequest;
@@ -13,7 +14,6 @@ use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -38,10 +38,9 @@ class AuthController extends ApiController
     {
         $this->baseStore($request);
 
-        return response()->json(array_merge(
-                $this->modelInUse->toArray(),
-                ['access_token' => $this->modelInUse->createToken('auth-token')->plainTextToken])
-        );
+        return response()->json([
+            'access_token' => $this->modelInUse->createToken('auth-token')->plainTextToken
+        ]);
     }
 
     /**
@@ -58,18 +57,14 @@ class AuthController extends ApiController
     }
 
     /**
-     * @param Request $request
+     * @param EmailVerificationResendRequest $request
      * @return JsonResponse
      */
-    public function resend(Request $request): JsonResponse
+    public function resend(EmailVerificationResendRequest $request): JsonResponse
     {
-        if ($request->user()->hasVerifiedEmail()) {
-            return new JsonResponse([], 204);
-        }
-
         $request->user()->sendEmailVerificationNotification();
 
-        return new JsonResponse([], 202);
+        return new JsonResponse([], 204);
     }
 
     /**
@@ -81,13 +76,8 @@ class AuthController extends ApiController
     {
         $user = User::where('email', $request->input('email'))->first();
 
-        if (!($user instanceof User) || !Hash::check($request->input('password'), $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
-            ]);
-        }
-
         return response()->json([
+            'user' => $user,
             'access_token' => $user->createToken('auth-token')->plainTextToken
         ]);
     }
@@ -139,5 +129,13 @@ class AuthController extends ApiController
         return response()->json([
             'message' => 'Tokens Revoked'
         ]);
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function validateToken(): JsonResponse
+    {
+        return new JsonResponse([], 200);
     }
 }

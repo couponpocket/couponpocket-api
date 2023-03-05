@@ -32,6 +32,7 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property string $password
  * @property int $role
  * @property string $remember_token
+ * @property bool $isVerified
  * @property DateTime $email_verified_at
  * @property DateTime $created_at
  * @property DateTime $updated_at
@@ -89,6 +90,11 @@ class User extends BaseModel implements
         'email_verified_at' => 'datetime'
     ];
 
+    public function getIsVerifiedAttribute(): bool
+    {
+        return $this->hasVerifiedEmail();
+    }
+
     public function isAdmin(): bool
     {
         return $this->role === 1;
@@ -121,7 +127,7 @@ class User extends BaseModel implements
 
     public function getEmailValidationCode(): string
     {
-        return mb_strtoupper(substr(sha1($this->id.$this->email.config('app.key').(time() - (time() % 900))), 0, 6));
+        return mb_strtoupper(substr(sha1($this->id . $this->email . config('app.key') . (time() - (time() % 900))), 0, 6));
     }
 
     public function setPasswordAttribute($value)
