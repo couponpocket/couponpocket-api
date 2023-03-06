@@ -17,6 +17,17 @@ trait IndexTrait
      */
     public function index(IndexRequest $request): JsonResponse
     {
-        return response()->json($this->modelClass::all());
+        $sortKey = $request->input('sortKey', $this->getDefaultSortKey());
+        $sortOrder = $request->input('sortOrder', 'asc');
+
+        return response()->json($this->modelClass::orderBy($sortKey, $sortOrder)->get());
+    }
+
+    /**
+     * @return string
+     */
+    protected function getDefaultSortKey(): string
+    {
+        return 'updated_at';
     }
 }

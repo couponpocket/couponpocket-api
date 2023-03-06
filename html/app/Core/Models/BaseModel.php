@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 /**
- * @property int $id
+ * @property string $id
  * @method static self create(array $array)
  * @method static self|null find(int $id)
  * @method static self findOrFail(int $id, array $columns = ['*'])
@@ -17,6 +17,7 @@ use Illuminate\Support\Str;
  * @method static Builder whereIn(string $string, array $array_map)
  * @method static Builder whereNotIn(string $string, array $array_map)
  * @method static count(string $column = '*')
+ * @method static Builder orderBy($column, $direction = 'asc')
  * @method static Builder|static whereHas($relation, Closure $callback = null, $operator = '>=', $count = 1)
  * @method Builder|static orWhere(\Closure|array|string $column, $operator = null, $value = null)
  * @method self fill(array $attributes)
