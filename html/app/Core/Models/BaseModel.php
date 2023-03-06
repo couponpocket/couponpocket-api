@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 /**
- * @property string $id
+ * @property-read string $id
  * @method static self create(array $array)
  * @method static self|null find(int $id)
  * @method static self findOrFail(int $id, array $columns = ['*'])

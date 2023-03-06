@@ -26,7 +26,6 @@ use Laravel\Sanctum\PersonalAccessToken;
  * Class User
  * @package App\Models
  *
- * @property-read string $id
  * @property string $name
  * @property string $email
  * @property string $password
