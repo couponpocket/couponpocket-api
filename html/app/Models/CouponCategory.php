@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $logo
  * @property string $color_background
  * @property string $color_foreground
+ * @property int $code_type
  * @property DateTime $created_at
  * @property DateTime $updated_at
  * @property DateTime $deleted_at
@@ -34,6 +35,7 @@ class CouponCategory extends BaseModel
         'logo',
         'color_background',
         'color_foreground',
+        'code_type',
         'created_at',
         'updated_at',
         'deleted_at'
