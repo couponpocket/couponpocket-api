@@ -130,12 +130,4 @@ class AuthController extends ApiController
             'message' => 'Tokens Revoked'
         ]);
     }
-
-    /**
-     * @return JsonResponse
-     */
-    public function validateToken(): JsonResponse
-    {
-        return new JsonResponse([], 200);
-    }
 }

@@ -34,7 +34,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('email/verify', [AuthController::class, 'verify'])->name('verification.verify');
     Route::post('email/resend', [AuthController::class, 'resend'])->name('verification.send');
     Route::post('remove-token', [AuthController::class, 'logout'])->name('remove.token');
-    Route::post('validate-token', [AuthController::class, 'validateToken'])->name('validate.token');
 
     Route::get('ping/auth', function () {
         return new Response("pong");
