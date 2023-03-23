@@ -31,10 +31,10 @@ class ApiController extends Controller
     }
 
     /**
-     * @param int $id
+     * @param string $id
      * @return BaseModel
      */
-    protected function getModelById(int $id): BaseModel
+    protected function getModelById(string $id): BaseModel
     {
         return $this->modelClass::findOrFail($id);
     }
