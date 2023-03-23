@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Contracts\Encryption\EncryptException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
@@ -81,6 +82,11 @@ class Handler extends ExceptionHandler
                     'message' => __('validation.error-message'),
                     'errors' => $e->errors()
                 ], $e->status);
+            case ModelNotFoundException::class:
+                /** @var ModelNotFoundException $e */
+                return response()->json([
+                    'message' => $e->getMessage()
+                ], 404);
             default:
                 /** @var Exception $e */
                 if ($request->expectsJson()) {
