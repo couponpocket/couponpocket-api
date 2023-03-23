@@ -32,12 +32,18 @@ class CouponFactory extends Factory
         '1000EXTRA'
     ];
 
+    const COUPON_CATEGORIES = [
+        'b33435c2-4f08-43bb-aca9-3a60764143c0',
+        'f22959ea-81be-43fd-aba6-d659953c50d9',
+        'f678fa75-d004-49dd-a726-016c6128bb68'
+    ];
+
     /**
      * Define the model's default state.
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         $validityFrom = now();
         $validityTill = clone $validityFrom;
@@ -46,11 +52,11 @@ class CouponFactory extends Factory
         return [
             'points' => self::POINTS[array_rand(self::POINTS)],
             'condition' => $this->faker->words(5, true),
-            'ean' => rand(0, 1) ? $this->faker->ean13 : $this->faker->ean8,
+            'ean' => $this->faker->ean13(),
             'source' => $this->faker->word(),
             'valid_from' => $validityFrom,
             'valid_till' => $validityTill,
-            'coupon_category_id' => rand(1, 6)
+            'coupon_category_id' => self::COUPON_CATEGORIES[array_rand(self::COUPON_CATEGORIES)]
         ];
     }
 }
