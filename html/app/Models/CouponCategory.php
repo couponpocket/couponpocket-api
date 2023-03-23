@@ -7,8 +7,6 @@ use DateTime;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
-use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
  * Class CouponCategory
@@ -26,8 +24,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  */
 class CouponCategory extends BaseModel
 {
-    use SoftDeletes,
-        HasRelationships;
+    use SoftDeletes;
 
     /**
      * @var array
