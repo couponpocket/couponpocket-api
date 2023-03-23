@@ -150,6 +150,9 @@ return [
     'attributes' => [
         'name' => 'Name',
         'email' => 'E-Mail-Adresse',
-        'password' => 'Passwort'
+        'password' => 'Passwort',
+        'number' => 'Nummer',
+        'user_id' => 'Benutzer',
+        'card_type_id' => 'Karten-Typ'
     ],
 ];

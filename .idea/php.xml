@@ -115,6 +115,13 @@
       <path value="$PROJECT_DIR$/html/vendor/fruitcake/php-cors" />
       <path value="$PROJECT_DIR$/html/vendor/laravel/sanctum" />
       <path value="$PROJECT_DIR$/html/vendor/tucker-eric/eloquentfilter" />
+      <path value="$PROJECT_DIR$/html/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/html/vendor/myclabs/php-enum" />
+      <path value="$PROJECT_DIR$/html/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/html/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/html/vendor/doctrine/event-manager" />
+      <path value="$PROJECT_DIR$/html/vendor/doctrine/deprecations" />
+      <path value="$PROJECT_DIR$/html/vendor/kitloong/laravel-migrations-generator" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1">

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Card;
 use App\Models\Coupon;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -13,12 +14,20 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         Coupon::factory(50)->create();
 
-        User::factory()
+        $users = User::factory()
             ->count(10)
             ->create();
+
+        foreach ($users as $user) {
+            Card::factory()
+                ->count(rand(1, 4))
+                ->create([
+                    'user_id' => $user->id
+                ]);
+        }
     }
 }

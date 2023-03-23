@@ -7,6 +7,8 @@ use DateTime;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
  * Class CouponCategory
@@ -24,7 +26,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class CouponCategory extends BaseModel
 {
-    use SoftDeletes;
+    use SoftDeletes,
+        HasRelationships;
 
     /**
      * @var array
@@ -52,5 +55,13 @@ class CouponCategory extends BaseModel
     public function coupons(): HasMany
     {
         return $this->hasMany(Coupon::class, 'coupon_category_id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function cardTypes(): HasMany
+    {
+        return $this->hasMany(CardType::class, 'coupon_category_id');
     }
 }

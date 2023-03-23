@@ -6,6 +6,7 @@ use App\Core\Models\BaseModel;
 use App\Notifications\VerifyEmail;
 use DateTime;
 use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailConstant;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -13,6 +14,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
@@ -36,6 +38,7 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property DateTime $created_at
  * @property DateTime $updated_at
  * @property DateTime $deleted_at
+ * @property Collection|Card[] $cards
  */
 class User extends BaseModel implements
     AuthenticatableContract,
@@ -137,5 +140,13 @@ class User extends BaseModel implements
     public function tokens(): MorphMany
     {
         return $this->morphMany(PersonalAccessToken::class, 'tokenable');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function cards(): HasMany
+    {
+        return $this->hasMany(Card::class, 'user_id');
     }
 }

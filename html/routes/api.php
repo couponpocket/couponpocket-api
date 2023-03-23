@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CardController;
+use App\Http\Controllers\Api\CardTypeController;
 use App\Http\Controllers\Api\CouponCategoryController;
 use App\Http\Controllers\Api\CouponController;
 use App\Http\Controllers\Api\UserController;
@@ -43,6 +45,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('users/me', [UserController::class, 'authorizedUser'])->name('user.me');
     Route::apiResource('users', UserController::class);
+    Route::apiResource('cards', CardController::class);
+    Route::get('card-types', [CardTypeController::class, 'index']);
 
     Route::get('ping/auth-verified', function () {
         return new Response("pong");
