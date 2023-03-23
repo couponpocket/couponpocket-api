@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
  * @method static self create(array $array)
  * @method static self|null find(int $id)
  * @method static self findOrFail(int $id, array $columns = ['*'])
+ * @method static self|object|static|null first(array|string $columns = ['*'])
  * @method static Builder where(\Closure|string|array $column, $operator = null, $value = null, $boolean = 'and')
  * @method static Builder select(string $query, array $bindings = [], bool $useReadPdo = true)
  * @method static Builder whereIn(string $string, array $array_map)
