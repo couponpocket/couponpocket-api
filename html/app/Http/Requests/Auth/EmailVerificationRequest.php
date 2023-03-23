@@ -16,13 +16,9 @@ class EmailVerificationRequest extends BaseRequest
      * Determine if the user is authorized to make this request.
      *
      * @return Response
-     * @throws ValidationException
      */
     public function authorize(): Response
     {
-        // do the validation before authorize
-        $this->getValidatorInstance()->validated();
-
         if ($this->user()->hasVerifiedEmail()) {
             return $this->deny(__('verification.failed.already_verified'), 403);
         }

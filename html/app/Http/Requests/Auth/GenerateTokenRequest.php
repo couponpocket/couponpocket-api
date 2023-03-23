@@ -13,14 +13,8 @@ use Illuminate\Validation\ValidationException;
  */
 class GenerateTokenRequest extends BaseRequest
 {
-    /**
-     * @throws ValidationException
-     */
     public function authorize(): Response
     {
-        // do the validation before authorize
-        $this->getValidatorInstance()->validated();
-
         $user = User::where('email', $this->request->get('email'))->first();
 
         if (!($user instanceof User) || !Hash::check($this->request->get('password'), $user->password)) {
