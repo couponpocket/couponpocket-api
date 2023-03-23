@@ -42,14 +42,14 @@ class BaseRequest extends FormRequest implements BaseRequestInterface
      */
     public function authorize(): Response
     {
-        /** @var User|null $user */
+        /** @var User $user */
         $user = Auth::user();
 
-        if (!$user || !$user->isAdmin()) {
-            return $this->deny();
+        if ($user->isAdmin()) {
+            return $this->allow();
         }
 
-        return $this->allow();
+        return $this->deny();
     }
 
     /**
