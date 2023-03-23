@@ -26,11 +26,7 @@ class AuthControllerTest extends TestCase
             'password' => 'password'
         ])
             ->assertOk()
-            ->assertJsonStructure([
-                'id',
-                'name',
-                'email'
-            ]);
+            ->assertJsonStructure(['access_token']);
 
         Event::assertDispatchedTimes(Registered::class);
 
@@ -145,7 +141,7 @@ class AuthControllerTest extends TestCase
             'email' => $user->email,
             'password' => 'notthesamepassword'
         ])
-            ->assertStatus(422);
+            ->assertStatus(401);
     }
 
     public function testResendVerificationMail()
@@ -160,7 +156,9 @@ class AuthControllerTest extends TestCase
 
         $this->json('post', '/api/email/resend', [], [
             'Authorization' => 'Bearer ' . $token
-        ])->assertStatus(202);
+        ])
+            ->assertNoContent();
+
 
         Notification::assertTimesSent(1, VerifyEmail::class);
     }
