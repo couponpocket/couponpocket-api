@@ -33,9 +33,9 @@ class CouponFactory extends Factory
     ];
 
     const COUPON_CATEGORIES = [
-        'b33435c2-4f08-43bb-aca9-3a60764143c0',
-        'f22959ea-81be-43fd-aba6-d659953c50d9',
-        'f678fa75-d004-49dd-a726-016c6128bb68'
+        'b33435c2-4f08-43bb-aca9-3a60764143c0', // ARAL
+        'f22959ea-81be-43fd-aba6-d659953c50d9', // REWE
+        '08f7d59e-f921-465b-a162-194880dfcb2f' // Burger King
     ];
 
     /**
