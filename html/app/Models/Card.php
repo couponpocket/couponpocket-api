@@ -42,6 +42,14 @@ class Card extends BaseModel
         'deleted_at'
     ];
 
+    public function delete(): bool|null
+    {
+        $this->number = preg_replace("/\w(?=\w{4})/", '9', $this->number);
+        $this->save();
+
+        return parent::delete();
+    }
+
     /**
      * @return BelongsTo
      */
