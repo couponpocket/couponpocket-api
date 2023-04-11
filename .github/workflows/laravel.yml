@@ -35,6 +35,8 @@ jobs:
         mysql database: 'couponpocket'
         mysql user: 'couponpocket'
         mysql password: 'password'
+    - name: Import default sql file
+      run: mysql -u couponpocket -p password couponpocket < ../database/couponpocket.sql
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
         DB_HOST: '127.0.0.1'
