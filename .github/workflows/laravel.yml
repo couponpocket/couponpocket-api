@@ -42,8 +42,4 @@ jobs:
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
         DB_HOST: '127.0.0.1'
-        DB_PORT: '3306'
-        DB_NAME: 'couponpocket'
-        DB_USER: 'couponpocket'
-        DB_PASSWORD: 'password'
       run: vendor/bin/phpunit
