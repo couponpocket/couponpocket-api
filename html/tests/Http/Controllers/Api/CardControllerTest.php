@@ -5,6 +5,7 @@ namespace Tests\Http\Controllers\Api;
 use App\Models\Card;
 use App\Models\User;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class CardControllerTest extends TestCase
@@ -121,7 +122,13 @@ class CardControllerTest extends TestCase
         ])
             ->assertOk();
 
-        $this->assertSoftDeleted('cards', $card->toArray());
+        // check if the card number has been anonymized
+        $this->assertDatabaseHas('cards', [
+            'id' => $card->id,
+            'number' => preg_replace("/\w(?=\w{4})/", '9', $card->number)
+        ]);
+
+        $this->assertSoftDeleted('cards', ['id' => $card->id]);
 
         // check if the card is not hard deleted
         $this->assertDatabaseCount('cards', 21);
