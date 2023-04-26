@@ -15,7 +15,7 @@ class StoreUserRequest extends StoreRequest
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'role' => 'required|integer|min:1|max:4',
-            'password' => 'required|min:6'
+            'password' => 'required|min:8'
         ];
     }
 }
