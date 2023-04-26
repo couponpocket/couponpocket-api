@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $source
  * @property DateTime $valid_from
  * @property DateTime $valid_till
+ * @property int $visibility //0 = hidden; 1 = visible
  * @property int $coupon_category_id
  * @property DateTime $updated_at
  * @property DateTime $created_at
@@ -41,6 +42,7 @@ class Coupon extends BaseModel
         'source',
         'valid_from',
         'valid_till',
+        'visibility',
         'created_at',
         'updated_at',
         'deleted_at'
