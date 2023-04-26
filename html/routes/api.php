@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('coupons', [CouponController::class, 'index'])->name('coupons');
 Route::get('coupon-categories', [CouponCategoryController::class, 'index']);
 
 Route::post('reset-password', [AuthController::class, 'resetPassword'])->name('password.reset');
@@ -31,6 +30,10 @@ Route::post('token', [AuthController::class, 'generateToken'])->name('token');
 Route::get('ping', function () {
     return new Response("pong");
 })->name('ping');
+
+Route::group(['middleware' => ['auth.optional:sanctum']], function () {
+    Route::get('coupons', [CouponController::class, 'index'])->name('coupons');
+});
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('email/verify', [AuthController::class, 'verify'])->name('verification.verify');
