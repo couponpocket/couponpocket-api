@@ -14,7 +14,8 @@ services:
     depends_on:
       - app
   app:
-    image: ghcr.io/rene-mueller/php-fpm-dev:8.1
+    image: ghcr.io/rene-mueller/php-fpm-dev:8.2
+    platform: linux/amd64
     networks:
       - sdnet
     volumes:
