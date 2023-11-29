@@ -32,7 +32,7 @@ jobs:
         php-version: '8.2'
     - uses: actions/checkout@v3
     - name: Set up MySQL
-      run: mysql < ../database/couponpocket.sql
+      run: mysql -ucouponpocket -ppassword < ../database/couponpocket.sql
     - name: initialize database
       run: mysql
     - name: Copy .env
